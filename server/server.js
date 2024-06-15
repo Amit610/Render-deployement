@@ -248,7 +248,7 @@ async function getLinks(url, page) {
 }
 
 // Endpoint to scrape data and return the file
-app.use("/", async (req, res) => {
+app.post("/scrape", async (req, res) => {
   const { url } = req.body;
   res.send("server is running")
   let browser;
