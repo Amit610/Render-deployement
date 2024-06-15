@@ -147,6 +147,8 @@ const puppeteer = require("puppeteer");
 const express = require("express");
 const xlsx = require("xlsx");
 const path = require("path");
+let cors = require("cors");
+app.use(cors());
 
 const app = express();
 app.use(express.json());
