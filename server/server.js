@@ -246,11 +246,12 @@ async function getLinks(url, page) {
   await page.goto(url);
   return await page.$$eval(".table a", (links) => links.map((a) => a.href));
 }
-
+app.use("/", async(req,res)=>{
+  res.send("serveris runnimg")
+})
 // Endpoint to scrape data and return the file
-app.post("/scrape", async (req, res) => {
+app.post("/scrape",cors(), async (req, res) => {
   const { url } = req.body;
-  res.send("server is running")
   let browser;
   try {
     // Launching Puppeteer with headless mode as false
