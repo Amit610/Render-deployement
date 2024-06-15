@@ -144,6 +144,7 @@
 // app.listen(PORT, () => {});
 
 const puppeteer = require("puppeteer");
+const chromium = require("@sparticuz/chromium");
 const express = require("express");
 const xlsx = require("xlsx");
 const path = require("path");
@@ -248,7 +249,7 @@ async function getLinks(url, page) {
 }
 
 // Endpoint to scrape data and return the file
-app.use("/scrape",cors(), async (req, res) => {
+app.post("/scrape",cors(), async (req, res) => {
   const { url } = req.body;
   let browser;
   try {
@@ -256,6 +257,10 @@ app.use("/scrape",cors(), async (req, res) => {
     browser = await puppeteer.launch({
       headless: false,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      ignoreHTTPSErrors: true,
     });
 
     const page = await browser.newPage();
