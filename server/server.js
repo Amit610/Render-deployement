@@ -10,6 +10,11 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+
 // Function to get company data from the page
 async function getCompData(url, page) {
   await page.goto(url);
